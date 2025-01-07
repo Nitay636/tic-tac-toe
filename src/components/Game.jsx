@@ -2,7 +2,7 @@ import React from "react";
 import Board from "./Board.jsx";
 
 export default function Game() {
-  const status = "Next player: X";
+  const status = "Next player: Nitay";
   const moves = (
     <li>
       <button>Start the game</button>
@@ -10,9 +10,9 @@ export default function Game() {
   );
   const squares = Array(9).fill(null);
   return (
-    <div>
+    <div className="game">
       <div className="game-board">
-        <Board></Board>
+        <Board squares={squares}></Board>
       </div>
       <div className="game-info">
         {status}
