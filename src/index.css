@@ -26,9 +26,12 @@ body {
   padding: 5px;
   margin: 15px;
   font-size: 60px;
+  align-items: center;
+  justify-content: center;
   width: 90px;
   height: 80px;
   position: relative;
+  display: flex;
   top: o;
   background-color: #1a1a1a;
   cursor: pointer;
