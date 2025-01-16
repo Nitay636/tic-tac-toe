@@ -45,7 +45,20 @@ body {
 but.btn:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-
+.btn.disabled {
+  cursor: default;
+}
+.btn.disabled:hover {
+  top: 0;
+  border-color: #1a1a1a;
+}
+.disabled .btn {
+  cursor: default;
+}
+.disabled .btn:hover {
+  top: 0;
+  border-color: #1a1a1a;
+}
 .game {
   display: flex;
   flex-wrap: wrap;

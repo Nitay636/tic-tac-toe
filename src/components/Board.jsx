@@ -1,4 +1,6 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
+import PropTypes from "prop-types";
 import Square from "./Square";
 
 export default function Board(props) {
@@ -67,3 +69,8 @@ export default function Board(props) {
     </div>
   );
 }
+
+Board.propTypes = {
+  squares: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onClick: PropTypes.func.isRequired,
+};

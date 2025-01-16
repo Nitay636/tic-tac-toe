@@ -13,6 +13,7 @@ const reducer = (state, action) => {
         ...state,
         history: state.history.concat({
           squares: action.payload.squares,
+          indexChanged: action.payload.indexChanged,
         }),
         xIsNext: !state.xIsNext,
       };
@@ -27,6 +28,7 @@ export default function Game() {
     history: [
       {
         squares: Array(9).fill(null),
+        indexChanged: null,
       },
     ],
   });
@@ -45,10 +47,17 @@ export default function Game() {
       return;
     }
     squares[i] = xIsNext ? "X" : "O";
+    if (history.length > 6) {
+      squares.splice(history[history.length - 6].indexChanged, 1);
+      squares.splice(history[history.length - 6].indexChanged, 0, null);
+      console.log(squares);
+    }
+
     dispatch({
       type: "MOVE",
       payload: {
         squares: squares,
+        indexChanged: i,
       },
     });
   };
@@ -63,14 +72,14 @@ export default function Game() {
   const moves = history.map((step, move) => {
     const desc = move ? "Go to #" + move : "Start the game";
     return (
-      <li key={move}>
+      <li key={move} style={{ listStyleType: "none" }}>
         <button onClick={() => jumpTo(move)}>{desc}</button>
       </li>
     );
   });
-  // const squares = Array(9).fill(null);
+
   return (
-    <div className="game">
+    <div className={winner ? "game disabled" : "game"}>
       <div className="game-board">
         <Board
           onClick={(i) => handleClick(i)}
