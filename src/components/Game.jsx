@@ -9,12 +9,13 @@ const reducer = (state, action) => {
         history: state.history.slice(0, action.payload.step + 1),
       };
     case "MOVE":
+      console.log("inside reducer");
       return {
         ...state,
         history: state.history.concat({
           squares: action.payload.squares,
-          indexChanged: action.payload.indexChanged,
         }),
+        indexChanged: action.payload.indexChanged,
         xIsNext: !state.xIsNext,
       };
     default:
@@ -23,22 +24,26 @@ const reducer = (state, action) => {
 };
 
 export default function Game() {
+  console.log("inside game");
   const [state, dispatch] = React.useReducer(reducer, {
     xIsNext: true,
     history: [
       {
         squares: Array(9).fill(null),
-        indexChanged: null,
       },
     ],
+    indexChanged: null,
   });
-  const { xIsNext, history } = state;
+  console.log("after useReducer");
+  const { xIsNext, history, indexChanged } = state;
+  console.log(state);
   const jumpTo = (step) => {
     dispatch({
       type: "JUMP",
       payload: { step },
     });
   };
+
   const handleClick = (i) => {
     const current = history[history.length - 1];
     const squares = current.squares.slice();
@@ -48,9 +53,8 @@ export default function Game() {
     }
     squares[i] = xIsNext ? "X" : "O";
     if (history.length > 6) {
-      squares.splice(history[history.length - 6].indexChanged, 1);
-      squares.splice(history[history.length - 6].indexChanged, 0, null);
-      console.log(squares);
+      squares.splice(i, 1);
+      squares.splice(state.indexChanged, 0, null);
     }
 
     dispatch({
@@ -60,6 +64,7 @@ export default function Game() {
         indexChanged: i,
       },
     });
+    console.log("after dispatch");
   };
 
   const current = history[history.length - 1];
