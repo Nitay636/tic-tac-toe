@@ -9,6 +9,10 @@ const reducer = (state, action) => {
         history: state.history.slice(0, action.payload.step + 1),
       };
     case "MOVE":
+      // const updatedLife = [...state.life];
+      // if (updatedLife > 3) {
+      //   updatedLife.shift();
+      // }
       return {
         ...state,
         history: state.history.concat({
@@ -31,6 +35,7 @@ export default function Game() {
         indexChanged: null,
       },
     ],
+    life: [],
   });
   const { xIsNext, history } = state;
   const jumpTo = (step) => {
